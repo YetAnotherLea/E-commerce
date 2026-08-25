@@ -1,0 +1,284 @@
+.admin-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  color: #333;
+}
+
+.admin-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  margin-top: 3rem;
+}
+
+/*Onglets*/
+.tabs-container {
+  margin-bottom: 30px;
+}
+
+.tab-buttons {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 15px 30px;
+  cursor: pointer;
+  color: #666;
+  transition: all 0.3s ease;
+  margin-right: 10px;
+}
+
+.tab-button:hover {
+  color: #f5f5f5;
+  background-color: #628BD9;
+}
+
+.tab-button.active {
+  color: #f5f5f5;
+  background-color: #628BD9;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.tab-content {
+  display: block;
+}
+
+/*Forms*/
+.form-container {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.add-product-form,
+.add-user-form {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.add-user-form {
+  margin-top: 20px;
+}
+
+.form-title {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-field {
+  margin-bottom: 10px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: 500;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #628bd9;
+  box-shadow: 0 0 0 2px rgba(98, 139, 217, 0.2);
+}
+
+/*Inputs*/
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus {
+  outline: none;
+  border-color: #628bd9;
+  box-shadow: 0 0 0 2px rgba(98, 139, 217, 0.2);
+}
+
+/*BTNS*/
+.submit-btn {
+  background-color: #628bd9;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #7975e6;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+/*TABS*/
+.management-container,
+.product-management,
+.user-management {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-management {
+  margin-top: 20px;
+}
+
+.management-title {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.data-table th,
+.data-table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.data-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table table th,
+.data-table table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+.data-table table th {
+  background-color: #f2f2f2;
+}
+
+.data-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+}
+
+.data-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.data-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+/*Autre*/
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 30px 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .admin-dashboard {
+    padding: 15px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .tab-button {
+    padding: 12px 20px;
+  }
+
+  .data-table {
+    font-size: 14px;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 8px;
+  }
+
+  .tab-buttons {
+    flex-direction: column;
+    border-bottom: none;
+  }
+
+  .tab-button {
+    margin-right: 0;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .tab-button.active {
+    border-color: #628bd9;
+    background-color: rgba(98, 139, 217, 0.1);
+  }
+}

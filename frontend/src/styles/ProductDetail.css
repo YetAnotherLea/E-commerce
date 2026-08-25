@@ -1,0 +1,160 @@
+.product-detail {
+  display: flex;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.product-image {
+  flex: 1;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+
+.product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.product-title {
+  margin: 0;
+  font-weight: 600;
+}
+
+.price {
+  display: flex;
+  align-items: baseline;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.currency {
+  font-size: 1.5rem;
+  margin-right: 0.2rem;
+}
+
+.amount {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.product-description {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.product-options {
+  display: flex;
+  gap: 1rem;
+}
+
+.option-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.option-label {
+  font-weight: 500;
+  font-size: 1.5em;
+  color: var(--text-primary);
+}
+
+.option-select {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 2px;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  padding-right: 2.5rem;
+}
+
+.option-select:focus {
+  outline: none;
+  border-color: #7975E6;
+}
+
+.add-to-cart-btn {
+  padding: 1rem 2rem;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  color: #333;
+
+  background: linear-gradient(to right, #7975E6 50%, transparent 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.5s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-position: left bottom;
+  color: #fefefe;
+  border: solid 1px #7975E6;
+}
+
+.submit-button {
+  padding: 16px 24px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .product-detail {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+  
+  .product-options {
+    flex-direction: column;
+  }
+  
+  .amount {
+    font-size: 2.5rem;
+  }
+}
+
+.product-detail-container {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.loading-spinner {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+.error-message {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 400px;
+}
+
+.error-message h2 {
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.error-message p {
+  color: var(--text-secondary);
+  margin: 0;
+}

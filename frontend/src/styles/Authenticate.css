@@ -1,0 +1,137 @@
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.form-card {
+    background: var(--card-bg);
+    border: solid 1px var(--border-color);
+    padding: 30px;
+    box-shadow: var(--shadow);
+    width: 300px;
+    text-align: center;
+}
+
+#signup-card {
+    width: 480px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--accent-color);
+    box-sizing: border-box;
+    font-size: 14px;
+    border-radius: 2px;
+}
+
+input:focus {
+    outline: none;
+    background-color: #fff;
+    color: #333;
+    border-color: #7975E6;
+}
+
+input::placeholder {
+    color: #666;
+}
+
+.error {
+    color: #ef4444;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+
+    background: linear-gradient(to right, #7975E6 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: all 0.5s ease;
+}
+
+.btn-primary:hover {
+    background-position: left bottom;
+    color: #fefefe;
+    border: solid 1px #7975E6;
+}
+
+.btn-secondary {
+    background: #e5e7eb;
+    color: #374151;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.btn-secondary:hover {
+    background: #d1d5db;
+}
+
+.links {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.links a {
+    color: #7975E6;
+    text-decoration: none;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+.terms {
+    font-size: 12px;
+    color: #666;
+    margin-top: 15px;
+    line-height: 1.4;
+}
+
+.terms a {
+    color: #7975E6;
+}
+
+.button-group {
+    margin-top: 20px;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}

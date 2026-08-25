@@ -1,0 +1,19 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+html, body {
+  overflow-x: hidden;
+#root {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+}
+.form-page {
+  overflow-y: hidden;
+}
+
+input {
+  border-radius: 2px;
+}

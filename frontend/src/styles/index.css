@@ -1,0 +1,159 @@
+:root {
+  font-family: "Lato", system-ui, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9f9f9;
+  --text-primary: #1a1a1a;
+  --text-secondary: #666666;
+  --accent-color: #7975E6;
+  --accent-hover: #5a54d1;
+  --border-color: #e5e7eb;
+  --input-bg: #ffffff;
+  --card-bg: #ffffff;
+  --nav-bg: #ffffff;
+  --footer-bg: #f9f9f9;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  color-scheme: light dark;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  margin: 0 auto;
+  text-align: center;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #111111;
+  --bg-secondary: #1a1a1a;
+  --text-primary: #f5f5f5;
+  --text-secondary: #a1a1aa;
+  --accent-color: #a39cf4;
+  --accent-hover: #c4b5fd;
+  --border-color: #27272a;
+  --input-bg: #1e1e1e;
+  --card-bg: #1a1a1a;
+  --nav-bg: #111111;
+  --footer-bg: #1a1a1a;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+body {
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.form-page {
+  overflow-y: hidden;
+}
+
+div {
+  border-radius: 2px;
+}
+
+h1 {
+  font-family: Arial, sans-serif;
+  font-size: 8rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+h2 {
+  font-family: "Arial", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 0.8;
+  color: var(--text-primary);
+}
+
+h3 {
+  font-family: "Arial", sans-serif;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+h4 {
+  font-family: "Arial", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+label {
+  font-family: "Arial", sans-serif;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+p, a, input::placeholder, button, input {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--text-primary);
+}
+
+a {
+  font-weight: 500;
+  text-decoration: inherit;
+  border-radius: 2px;
+}
+
+a:hover {
+  color: var(--accent-color);
+}
+
+button {
+  border-radius: 2px;
+  border: 1px solid var(--border-color);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  background-color: var(--bg-secondary);
+  cursor: pointer;
+  transition: border-color 0.25s;
+  color: var(--text-primary);
+}
+
+button:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+input, select {
+  border-radius: 2px;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+/* Global Dark Mode overrides will go here only if necessary, preferring component-specific variables */
+[data-theme="dark"] body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
