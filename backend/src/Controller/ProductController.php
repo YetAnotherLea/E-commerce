@@ -123,7 +123,7 @@ class ProductController extends AbstractController
         $allowedProperties = [
             'Gender', 'Category', 'SubCategory', 'ProductType', 'Colour', 'ProductUsage'
         ];
-        $caseMap = [];
+        $caseMap = ['usage' => 'ProductUsage'];
         foreach ($allowedProperties as $p) {
             $caseMap[strtolower($p)] = $p;
         }

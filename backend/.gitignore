@@ -19,3 +19,6 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+# Images produits : regenerees par `php bin/console app:import-products`
+/public/uploads/
