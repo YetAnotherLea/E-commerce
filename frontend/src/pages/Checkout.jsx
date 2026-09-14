@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../hooks";
-import { visa, mastercard, cb, logo } from "../assets";
 import "../styles/Checkout.css";
 
 const Checkout = () => {
   const { cart, getTotalPrice, clearCart } = useCart();
   const navigate = useNavigate();
-  const [isFlipped, setIsFlipped] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
-    cardNumber: "",
-    expiry: "",
-    cvv: "",
     address: "",
     city: "",
     zip: "",
@@ -26,28 +21,12 @@ const Checkout = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleFocus = (name) => {
-    if (name === "cvv") setIsFlipped(true);
-    else setIsFlipped(false);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsProcessing(true);
-
-    // Simulate payment processing
-    setTimeout(() => {
-      setIsProcessing(false);
-      setIsSuccess(true);
-      clearCart();
-    }, 3000);
-  };
-
-  const formatCardNumber = (num) => {
-    return num
-      .replace(/\s?/g, "")
-      .replace(/(\d{4})/g, "$1 ")
-      .trim();
+    setIsSuccess(true);
+    setIsProcessing(false);
+    clearCart();
   };
 
   if (cart.length === 0 && !isSuccess) {
@@ -80,8 +59,11 @@ const Checkout = () => {
             />
           </svg>
         </div>
-        <h2>Paiement Réussi !</h2>
-        <p>Votre commande a été traitée avec succès. Merci !</p>
+        <h2>Commande enregistrée !</h2>
+        <p>
+          Merci. Cette boutique est une démonstration : aucun paiement n'est
+          traité et aucune commande ne sera expédiée.
+        </p>
         <button onClick={() => navigate("/")} className="btn-primary">
           Aller à la page d'accueil
         </button>
@@ -93,61 +75,6 @@ const Checkout = () => {
     <div className="checkout-page">
       <div className="checkout-container">
         <div className="checkout-left">
-          <div className="card-wrapper">
-            <div className={`credit-card ${isFlipped ? "flipped" : ""}`}>
-              <div className="card-front">
-                <div className="card-bg"></div>
-                <div className="card-content">
-                  <div className="card-header">
-                    <img
-                      loading="lazy"
-                      src={logo}
-                      alt="Hainarie"
-                      className="card-logo"
-                    />
-                    <img
-                      loading="lazy"
-                      src={visa}
-                      alt="Visa"
-                      className="card-type"
-                    />
-                  </div>
-                  <div className="card-chip"></div>
-                  <div className="card-number">
-                    {formData.cardNumber
-                      ? formatCardNumber(formData.cardNumber)
-                      : "XXXX XXXX XXXX XXXX"}
-                  </div>
-                  <div className="card-footer">
-                    <div className="card-holder">
-                      <span className="label">Titulaire du compte</span>
-                      <span className="value">
-                        {formData.name || "NOM PRÉNOM"}
-                      </span>
-                    </div>
-                    <div className="card-expiry">
-                      <span className="label">Expire le</span>
-                      <span className="value">
-                        {formData.expiry || "MM/YY"}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="card-back">
-                <div className="card-bg"></div>
-                <div className="card-black-line"></div>
-                <div className="card-cvv-section">
-                  <span className="label">CVV</span>
-                  <div className="cvv-value">{formData.cvv || "***"}</div>
-                  <div className="card-type-back">
-                    <img loading="lazy" src={visa} alt="Visa" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <form className="checkout-form" onSubmit={handleSubmit}>
             <h3>Détails de Livraison</h3>
             <div className="form-row">
@@ -160,7 +87,6 @@ const Checkout = () => {
                   required
                   value={formData.name}
                   onChange={handleInputChange}
-                  onFocus={() => handleFocus("name")}
                 />
               </div>
             </div>
@@ -202,59 +128,17 @@ const Checkout = () => {
               </div>
             </div>
 
-            <h3>Détails de Paiement</h3>
-            <div className="form-row">
-              <div className="form-group">
-                <label>Numéro de Carte</label>
-                <input
-                  type="text"
-                  name="cardNumber"
-                  maxLength="16"
-                  placeholder="4000 0000 0000 0000"
-                  required
-                  value={formData.cardNumber}
-                  onChange={handleInputChange}
-                  onFocus={() => handleFocus("cardNumber")}
-                />
-              </div>
-            </div>
-            <div className="form-row">
-              <div className="form-group">
-                <label>Date d'expiration</label>
-                <input
-                  type="text"
-                  name="expiry"
-                  placeholder="MM/YY"
-                  maxLength="5"
-                  required
-                  value={formData.expiry}
-                  onChange={handleInputChange}
-                  onFocus={() => handleFocus("expiry")}
-                />
-              </div>
-              <div className="form-group">
-                <label>CVV</label>
-                <input
-                  type="password"
-                  name="cvv"
-                  maxLength="3"
-                  placeholder="***"
-                  required
-                  value={formData.cvv}
-                  onChange={handleInputChange}
-                  onFocus={() => handleFocus("cvv")}
-                />
-              </div>
-            </div>
+            <p className="checkout-demo-notice">
+              Projet de démonstration : la commande n'est pas payée ni expédiée.
+              Aucune coordonnée bancaire n'est demandée.
+            </p>
 
             <button
               type="submit"
               className="btn-primary"
               disabled={isProcessing}
             >
-              {isProcessing
-                ? "Traitement en cours..."
-                : `Payer $${getTotalPrice().toFixed(2)}`}
+              {`Valider la commande — $${getTotalPrice().toFixed(2)}`}
             </button>
           </form>
         </div>

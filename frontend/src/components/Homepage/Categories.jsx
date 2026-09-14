@@ -18,7 +18,6 @@ function Categories() {
 
   //FETCH CATEGORIES
   const [subCategories, setSubCategories] = useState([]);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +25,7 @@ function Categories() {
         const cats = await getCategories();
         setSubCategories(cats);
       } catch (err) {
-        setError(err.message);
+        console.error("Erreur lors du chargement des catégories :", err);
       }
     };
 
