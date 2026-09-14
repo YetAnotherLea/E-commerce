@@ -8,17 +8,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Psr\Log\LoggerInterface;
 
 class ProductController extends AbstractController
 {
+    /** Plafond de pagination : empêche ?pageSize=999999 de vider la table. */
+    private const MAX_PAGE_SIZE = 100;
+
+    public function __construct(private readonly LoggerInterface $logger)
+    {
+    }
+
     #[Route('/api/products', name: 'api_products_list', methods: ['GET', 'POST', 'OPTIONS'])]
     public function list(Request $request, ProductRepository $productRepository): JsonResponse
     {
         try {
             $payload = [];
             $sort = [];
-            $page = $request->query->getInt('page', 1);
-            $pageSize = $request->query->getInt('pageSize', 20);
+            $page = max(1, $request->query->getInt('page', 1));
+            $pageSize = min(max(1, $request->query->getInt('pageSize', 20)), self::MAX_PAGE_SIZE);
 
             if ($request->isMethod('POST')) {
                 $data = json_decode($request->getContent(), true) ?? [];
@@ -85,7 +93,9 @@ class ProductController extends AbstractController
 
             return $this->json($products);
         } catch (\Exception $e) {
-            return $this->json(['error' => $e->getMessage()], 500);
+            $this->logger->error('Product listing failed', ['exception' => $e]);
+
+            return $this->json(['error' => 'Unable to fetch products.'], 500);
         }
     }
 

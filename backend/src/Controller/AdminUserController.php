@@ -10,10 +10,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_ADMIN')]
 #[Route('/api/admin/users')]
 class AdminUserController extends AbstractController
 {
+    private const ASSIGNABLE_ROLES = ['ROLE_USER', 'ROLE_ADMIN'];
+
     private EntityManagerInterface $entityManager;
     private UserPasswordHasherInterface $passwordHasher;
 
@@ -32,9 +36,16 @@ class AdminUserController extends AbstractController
             return $this->json(['message' => 'Email and password are required.'], Response::HTTP_BAD_REQUEST);
         }
 
+        // Liste blanche : un admin peut attribuer un rôle, mais pas n'importe lequel.
+        $requestedRoles = $data['roles'] ?? ['ROLE_USER'];
+        $roles = array_values(array_intersect(
+            is_array($requestedRoles) ? $requestedRoles : ['ROLE_USER'],
+            self::ASSIGNABLE_ROLES
+        ));
+
         $user = new User();
         $user->setEmail($data['email']);
-        $user->setRoles($data['roles'] ?? ['ROLE_USER']);
+        $user->setRoles($roles ?: ['ROLE_USER']);
 
         // Crypte le mot de passe avant de le set
         $hashedPassword = $this->passwordHasher->hashPassword(

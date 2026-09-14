@@ -5,52 +5,63 @@ namespace App\Controller;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class SecurityController extends AbstractController
 {
+    /**
+     * L'authentification est assurée par le firewall (json_login dans
+     * security.yaml) : il lit {"email": ..., "password": ...}, vérifie le mot de
+     * passe et ouvre la session. Cette méthode n'est atteinte qu'en cas de succès.
+     */
     #[Route('/api/login', name: 'api_login', methods: ['POST'])]
-    public function login(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): JsonResponse
+    public function login(#[CurrentUser] ?User $user): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
-
-        // 1. Vérifiez si l'email et le mot de passe sont présents
-        if (!isset($data['email']) || !isset($data['password'])) {
-            return $this->json(['message' => 'Email and password are required.'], Response::HTTP_BAD_REQUEST);
-        }
-
-        // 2. Recherchez l'utilisateur dans la base de données
-        $user = $entityManager->getRepository(User::class)->findOneBy(['email' => $data['email']]);
-
-        // 3. Vérifiez si l'utilisateur existe
-        if (!$user) {
+        if (null === $user) {
             return $this->json(['message' => 'Invalid credentials.'], Response::HTTP_UNAUTHORIZED);
         }
 
-        // 4. Vérifiez le mot de passe
-        if (!$passwordHasher->isPasswordValid($user, $data['password'])) {
-            return $this->json(['message' => 'Invalid credentials.'], Response::HTTP_UNAUTHORIZED);
-        }
-
-        // 5. Authentification réussie
         return $this->json([
             'message' => 'Login successful!',
-            'user' => [
-                'id' => $user->getId(),
-                'email' => $user->getEmail(),
-                'roles' => $user->getRoles(),
-            ]
+            'user' => $this->serializeUser($user),
         ]);
     }
-    
+
+    /**
+     * Interceptée par le firewall avant d'arriver ici (logout.path dans
+     * security.yaml). La réponse est produite par LogoutSubscriber.
+     */
     #[Route('/api/logout', name: 'api_logout', methods: ['POST'])]
-    public function logout(): JsonResponse
+    public function logout(): never
     {
-        
-        return $this->json(['message' => 'Logout successful!']);
+        throw new \LogicException('Cette méthode est interceptée par le firewall de sécurité.');
+    }
+
+    /**
+     * Source de vérité de la session côté front : c'est le serveur qui dit qui
+     * est connecté, jamais le localStorage du navigateur.
+     */
+    #[Route('/api/me', name: 'api_me', methods: ['GET'])]
+    public function me(#[CurrentUser] ?User $user): JsonResponse
+    {
+        if (null === $user) {
+            return $this->json(['message' => 'Not authenticated.'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        return $this->json($this->serializeUser($user));
+    }
+
+    /**
+     * Ne jamais exposer le hash du mot de passe.
+     */
+    private function serializeUser(User $user): array
+    {
+        return [
+            'id' => $user->getId(),
+            'email' => $user->getEmail(),
+            'roles' => $user->getRoles(),
+        ];
     }
 }
