@@ -12,13 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Inscription publique.
- *
- * Auparavant le front postait sur /api/admin/users en transmettant `roles`, ce qui
- * permettait à n'importe qui de se créer un compte ROLE_ADMIN. Ici le rôle est
- * imposé par le serveur et tout `roles` reçu du client est ignoré.
- */
 class RegistrationController extends AbstractController
 {
     private const MIN_PASSWORD_LENGTH = 8;
@@ -59,7 +52,7 @@ class RegistrationController extends AbstractController
 
         $user = new User();
         $user->setEmail($email);
-        // Le rôle n'est jamais pris depuis la requête.
+        // Rôle imposé par le serveur, jamais lu depuis la requête
         $user->setRoles(['ROLE_USER']);
         $user->setPassword($passwordHasher->hashPassword($user, $password));
 

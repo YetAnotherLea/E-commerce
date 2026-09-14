@@ -1,19 +1,8 @@
-import axios from "axios";
-
-const API_URL = "http://127.0.0.1:8000/api/";
-
-const cache = {};
+import { api as axiosInstance, assetUrl } from "../../api";
 
 const normalizeProduct = (product) => ({
   ...product,
-  ImageURL: product.ImageURL?.startsWith("/uploads/")
-    ? `${API_URL.replace("/api/", "")}${product.ImageURL}`
-    : product.ImageURL,
-});
-
-const axiosInstance = axios.create({
-  baseURL: API_URL,
-  headers: { "x-auth": "bCdhbm7pZSBwcm9jaGFpbmUgYydlc3QgZHlsYW4h" },
+  ImageURL: assetUrl(product.ImageURL),
 });
 
 const FIELD_MAPPING = {
@@ -46,14 +35,7 @@ export const getProducts = async ({
     payload.ProductTitle = { $regex: searchText.trim(), $options: "i" };
   }
 
-  const hasFilters = Object.keys(payload).length > 0;
-  const hasSort = Object.keys(sort).length > 0;
-
-  console.log("API getProducts - hasFilters:", hasFilters, "payload:", payload);
-  console.log("API getProducts - hasSort:", hasSort, "sort:", sort);
-
   try {
-    console.log("Utilisation de POST /products");
     const response = await axiosInstance.post(
       "products",
       {
@@ -64,9 +46,7 @@ export const getProducts = async ({
         params: { page, pageSize },
       },
     );
-    console.log("Réponse POST:", response.data.length, "produits");
     const normalized = response.data.map(normalizeProduct);
-    console.log("Premier produit normalisé:", normalized[0]?.ImageURL);
     return normalized;
   } catch (error) {
     console.error("Erreur dans getProducts:", error);

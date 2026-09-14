@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logo } from "../../assets";
+import { register } from "../../api";
 
 function Register({ onUserAdded }) {
   const navigate = useNavigate();
@@ -9,7 +10,6 @@ function Register({ onUserAdded }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    roles: ["ROLE_USER"],
   });
 
   const handleChange = (e) => {
@@ -35,23 +35,19 @@ function Register({ onUserAdded }) {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/api/admin/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      if (!response.ok) {
-        throw new Error("Échec de l'ajout de l'utilisateur.");
-      }
-      alert("Utilisateur ajouté avec succès !");
-      setFormData({ email: "", password: "", roles: ["ROLE_USER"] });
-      onUserAdded;
+      await register(email, password);
+      setFormData({ email: "", password: "" });
+      onUserAdded?.();
       navigate("/login");
     } catch (error) {
-      console.error("Erreur lors de l'ajout de l'utilisateur :", error);
-      alert("Erreur lors de l'ajout de l'utilisateur.");
+      const status = error?.response?.status;
+      if (status === 409) {
+        setError("Un compte existe déjà avec cette adresse e-mail");
+      } else {
+        setError(
+          error?.response?.data?.message ?? "Erreur lors de la création du compte",
+        );
+      }
     }
   };
 

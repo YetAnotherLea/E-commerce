@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { api } from "../../api";
 
 function AdminProduct() {
   const [formData, setFormData] = useState({
@@ -14,16 +15,8 @@ function AdminProduct() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Ici tu feras la requête POST vers /admin/api/products
-    fetch("http://localhost:8000/admin/api/products", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log("Product added:", data))
+    api
+      .post("admin/products", formData)
       .catch((error) => console.error("Error:", error));
   };
 

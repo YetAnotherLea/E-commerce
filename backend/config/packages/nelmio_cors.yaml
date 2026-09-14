@@ -1,9 +1,5 @@
-# Le front et l'API sont servis sur le même domaine (nginx : / -> build Vite,
-# /api -> Symfony). Il n'y a donc pas de requête cross-origin en production, et
-# aucune règle permissive n'est nécessaire.
-#
-# CORS_ALLOW_ORIGIN sert uniquement au développement, où Vite tourne sur :5173
-# et Symfony sur :8000. Il doit rester une origine explicite, jamais '*'.
+# Front et API sur le même domaine en production : le CORS ne sert qu'en dev,
+# où Vite tourne sur :5173 et Symfony sur :8000.
 nelmio_cors:
     defaults:
         origin_regex: true

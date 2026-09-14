@@ -6,10 +6,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Http\Event\LogoutEvent;
 
-/**
- * Sans ça, le firewall répond à /api/logout par une redirection HTML.
- * Le front attend du JSON.
- */
+// Répond en JSON à /api/logout, au lieu de la redirection par défaut du firewall
 class LogoutSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents(): array

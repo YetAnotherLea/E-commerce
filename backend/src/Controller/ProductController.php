@@ -12,7 +12,6 @@ use Psr\Log\LoggerInterface;
 
 class ProductController extends AbstractController
 {
-    /** Plafond de pagination : empêche ?pageSize=999999 de vider la table. */
     private const MAX_PAGE_SIZE = 100;
 
     public function __construct(private readonly LoggerInterface $logger)

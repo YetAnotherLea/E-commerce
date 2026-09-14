@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../../styles/Dashboard.css";
+import { api } from "../../api";
 
 function AddUserForm({ onUserAdded }) {
   const [formData, setFormData] = useState({
@@ -19,17 +20,7 @@ function AddUserForm({ onUserAdded }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/api/admin/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to add user.");
-      }
-      alert("User added successfully!");
+      await api.post("admin/users", formData);
       setFormData({ email: "", password: "", roles: ["ROLE_USER"] });
       onUserAdded();
     } catch (error) {

@@ -6,11 +6,11 @@ import {
   userIcon,
   userIconConnected,
   //closeIcon,
-  emptyCartIcon,
 } from "../assets";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useUserAuth, useCart } from "../hooks";
+import { useUserAuth } from "../hooks";
+import { logout } from "../api";
 
 function Navbar() {
   const { user, setUser } = useUserAuth();
@@ -51,17 +51,14 @@ function Navbar() {
 
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:8000/api/logout", {
-        method: "POST",
-      });
-      localStorage.removeItem("user");
+      await logout();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    } finally {
       setUser(null);
-      alert("You have been logged out.");
       if (location.pathname !== "/") {
         navigate("/");
       }
-    } catch (error) {
-      console.error("Logout failed:", error);
     }
   };
 

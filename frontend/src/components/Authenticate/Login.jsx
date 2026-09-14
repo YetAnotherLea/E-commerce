@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logo } from "../../assets";
 import { useUserAuth } from "../../hooks";
+import { login } from "../../api";
 
 function Login() {
   const { setUser } = useUserAuth();
@@ -32,26 +33,11 @@ function Login() {
 
     setError("");
     try {
-      const response = await fetch("http://localhost:8000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      if (!response.ok) {
-        throw new Error("Échec de la connexion.");
-      }
-      const data = await response.json();
-      alert("Connexion réussie !");
-      console.log("Utilisateur connecté :", data.user);
-      const loggedInUser = data.user;
+      const loggedInUser = await login(email, password);
       setUser(loggedInUser);
-      localStorage.setItem("user", JSON.stringify(data.user));
       navigate("/");
-    } catch (error) {
-      console.error("Erreur lors de la connexion :", error);
-      alert("Échec de la connexion. Veuillez vérifier vos identifiants.");
+    } catch {
+      setError("Échec de la connexion. Veuillez vérifier vos identifiants.");
     }
   };
   return (

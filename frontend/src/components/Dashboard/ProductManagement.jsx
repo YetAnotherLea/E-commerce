@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../../styles/Dashboard.css";
+import { api } from "../../api";
 
 function ProductManagement({ reloadProducts }) {
   const [products, setProducts] = useState([]);
@@ -9,12 +10,7 @@ function ProductManagement({ reloadProducts }) {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/admin/products");
-      if (!response.ok) {
-        throw new Error("Failed to fetch products.");
-      }
-
-      const data = await response.json();
+      const { data } = await api.get("admin/products");
       setProducts(data);
       setLoading(false);
     } catch (error) {
@@ -30,17 +26,7 @@ function ProductManagement({ reloadProducts }) {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
-        const response = await fetch(
-          `http://localhost:8000/api/admin/products/${id}`,
-          {
-            method: "DELETE",
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Failed to delete product.");
-        }
-
-        alert("Product deleted successfully!");
+        await api.delete(`admin/products/${id}`);
         fetchProducts();
       } catch (error) {
         console.error("Error deleting product:", error);
@@ -66,25 +52,11 @@ function ProductManagement({ reloadProducts }) {
 
   const handleSaveEdit = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:8000/api/admin/products/${id}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...editFormData,
-            Price: parseFloat(editFormData.Price),
-          }),
-        }
-      );
+      await api.patch(`admin/products/${id}`, {
+        ...editFormData,
+        Price: parseFloat(editFormData.Price),
+      });
 
-      if (!response.ok) {
-        throw new Error("Failed to update product.");
-      }
-
-      alert("Product updated successfully!");
       setEditingProduct(null);
       setEditFormData({});
       fetchProducts();

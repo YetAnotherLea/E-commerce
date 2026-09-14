@@ -7,13 +7,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-/**
- * Client de l'API vêtements.
- *
- * L'URL vient de la configuration (PRODUCTS_API_URL) : aucune adresse ni aucun
- * secret n'est écrit en dur ici. La version précédente pointait sur une IP de
- * salle Epitech avec une clé d'API committée dans le dépôt.
- */
+// Client de l'API vêtements. L'URL vient de PRODUCTS_API_URL.
 class ProductApiClient
 {
     public function __construct(
@@ -24,11 +18,7 @@ class ProductApiClient
     ) {
     }
 
-    /**
-     * Catégories mode retenues pour le catalogue Hainarie.
-     *
-     * @return string[]
-     */
+    /** @return string[] */
     public function getClothingCategories(): array
     {
         return [
@@ -43,9 +33,7 @@ class ProductApiClient
         ];
     }
 
-    /**
-     * @return array<int, array<string, mixed>> Les produits d'une catégorie, [] en cas d'échec.
-     */
+    /** @return array<int, array<string, mixed>> [] si l'appel échoue */
     public function getProductsByCategory(string $category): array
     {
         try {

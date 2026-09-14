@@ -3,7 +3,6 @@ security:
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: "auto"
 
-    # Les utilisateurs viennent de la base, identifiés par leur email.
     providers:
         app_user_provider:
             entity:
@@ -18,16 +17,12 @@ security:
             lazy: true
             provider: app_user_provider
 
-            # Authentification JSON : le front poste {"email": ..., "password": ...}
-            # sur /api/login. Symfony vérifie les identifiants et ouvre la session ;
-            # SecurityController::login() n'est atteint qu'en cas de succès.
+            # Le front poste {"email", "password"} sur /api/login
             json_login:
                 check_path: api_login
                 username_path: email
                 password_path: password
 
-            # La déconnexion est interceptée par le firewall. La réponse JSON est
-            # produite par App\EventSubscriber\LogoutSubscriber.
             logout:
                 path: api_logout
                 invalidate_session: true

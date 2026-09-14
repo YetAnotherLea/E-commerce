@@ -36,7 +36,7 @@ class AdminUserController extends AbstractController
             return $this->json(['message' => 'Email and password are required.'], Response::HTTP_BAD_REQUEST);
         }
 
-        // Liste blanche : un admin peut attribuer un rôle, mais pas n'importe lequel.
+        // Seuls les rôles connus sont attribuables
         $requestedRoles = $data['roles'] ?? ['ROLE_USER'];
         $roles = array_values(array_intersect(
             is_array($requestedRoles) ? $requestedRoles : ['ROLE_USER'],

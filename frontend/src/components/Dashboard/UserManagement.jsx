@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../../styles/Dashboard.css";
+import { api } from "../../api";
 
 function UserManagement() {
   const [users, setUsers] = useState([]);
@@ -7,11 +8,7 @@ function UserManagement() {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/admin/users");
-      if (!response.ok) {
-        throw new Error("Failed to fetch users.");
-      }
-      const data = await response.json();
+      const { data } = await api.get("admin/users");
       setUsers(data);
       setLoading(false);
     } catch (error) {
@@ -27,17 +24,7 @@ function UserManagement() {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
-        const response = await fetch(
-          `http://localhost:8000/api/admin/users/${id}`,
-          {
-            method: "DELETE",
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Failed to delete user.");
-        }
-
-        alert("User deleted successfully!");
+        await api.delete(`admin/users/${id}`);
         fetchUsers();
       } catch (error) {
         console.error("Error deleting user:", error);

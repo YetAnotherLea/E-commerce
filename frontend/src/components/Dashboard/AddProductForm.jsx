@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../../styles/Dashboard.css";
+import { api } from "../../api";
 
 function AddProductForm({ onProductAdded }) {
   const [formData, setFormData] = useState({
@@ -27,20 +28,7 @@ function AddProductForm({ onProductAdded }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/api/admin/products", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to add product.");
-      }
-      const data = await response.json();
-      alert("Product added successfully!");
-      console.log("Product added:", data);
+      await api.post("admin/products", formData);
       setFormData({
         ProductId: "",
         Gender: "",

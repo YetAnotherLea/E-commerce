@@ -11,11 +11,7 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class SecurityController extends AbstractController
 {
-    /**
-     * L'authentification est assurée par le firewall (json_login dans
-     * security.yaml) : il lit {"email": ..., "password": ...}, vérifie le mot de
-     * passe et ouvre la session. Cette méthode n'est atteinte qu'en cas de succès.
-     */
+    // Authentification gérée par json_login (security.yaml) : atteint en cas de succès
     #[Route('/api/login', name: 'api_login', methods: ['POST'])]
     public function login(#[CurrentUser] ?User $user): JsonResponse
     {
@@ -29,20 +25,14 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    /**
-     * Interceptée par le firewall avant d'arriver ici (logout.path dans
-     * security.yaml). La réponse est produite par LogoutSubscriber.
-     */
+    // Interceptée par le firewall, voir LogoutSubscriber
     #[Route('/api/logout', name: 'api_logout', methods: ['POST'])]
     public function logout(): never
     {
         throw new \LogicException('Cette méthode est interceptée par le firewall de sécurité.');
     }
 
-    /**
-     * Source de vérité de la session côté front : c'est le serveur qui dit qui
-     * est connecté, jamais le localStorage du navigateur.
-     */
+    // Utilisateur de la session courante
     #[Route('/api/me', name: 'api_me', methods: ['GET'])]
     public function me(#[CurrentUser] ?User $user): JsonResponse
     {
@@ -53,9 +43,6 @@ class SecurityController extends AbstractController
         return $this->json($this->serializeUser($user));
     }
 
-    /**
-     * Ne jamais exposer le hash du mot de passe.
-     */
     private function serializeUser(User $user): array
     {
         return [

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAddToCart } from "../hooks";
 import "../styles/ProductDetail.css";
+import { api, assetUrl } from "../api";
 
 function ProductDetail() {
   const { id } = useParams();
@@ -12,18 +13,8 @@ function ProductDetail() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(
-          `http://127.0.0.1:8000/api/products/${id}`,
-          {
-            method: "GET",
-          },
-        );
-        if (!response.ok) throw new Error("Product not found");
-        const data = await response.json();
-        if (data.ImageURL?.startsWith("/uploads/")) {
-          data.ImageURL = "http://127.0.0.1:8000" + data.ImageURL;
-        }
-        setProduct(data);
+        const { data } = await api.get(`products/${id}`);
+        setProduct({ ...data, ImageURL: assetUrl(data.ImageURL) });
       } catch (error) {
         console.error("Failed to fetch product details:", error);
         setProduct(null);

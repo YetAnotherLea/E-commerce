@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { api } from "../api";
 
 function ProductList() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/products")
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data.products);
+    api
+      .get("products")
+      .then(({ data }) => {
+        setProducts(data);
         setLoading(false);
       })
       .catch((error) => {
