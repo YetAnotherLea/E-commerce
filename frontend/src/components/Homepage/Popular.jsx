@@ -24,13 +24,13 @@ function Popular() {
 
   const scrollLeft = () => {
     document
-      .querySelector("#carousel-track")
+      .querySelector("#popular-track")
       .scrollBy({ left: -260, behavior: "smooth" });
   };
 
   const scrollRight = () => {
     document
-      .querySelector("#carousel-track")
+      .querySelector("#popular-track")
       .scrollBy({ left: 260, behavior: "smooth" });
   };
 
@@ -56,13 +56,13 @@ function Popular() {
   return (
     <section className="carousel-container popular-section">
       <div className="carousel">
-        <div id="carousel-track" className="carousel-track">
+        <div id="popular-track" className="carousel-track">
           {cards.map((card, index) => (
             <div className="card" key={index}>
               {card.type === "intro" ? (
                 <div className="intro-card">
                   <h3>{card.title}</h3>
-                  <a href="/populaire" className="cta-button">
+                  <a href="/catalog?page=1" className="cta-button">
                     {card.buttonText}
                   </a>
                 </div>

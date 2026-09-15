@@ -262,6 +262,9 @@ body {
   z-index: 2;
   font-size: 1.5rem;
   color: var(--text-primary);
+  padding: 0.4rem 1.2rem;
+  background: color-mix(in srgb, var(--bg-primary) 85%, transparent);
+  border-radius: 4px;
 }
 
 .genders-under-container a {
@@ -320,8 +323,9 @@ body {
   color: var(--text-primary);
   padding: 0.5rem 1rem;
   text-align: center;
-  width: 100%;
-  padding: 100%;
+  white-space: nowrap;
+  background: color-mix(in srgb, var(--bg-primary) 85%, transparent);
+  border-radius: 4px;
 }
 
 .categories-section .product-card a {

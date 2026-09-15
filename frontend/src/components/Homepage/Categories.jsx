@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getCategories } from "../../pages/Admin/api-client";
+import { assetUrl } from "../../api";
 
 function Categories() {
   //JS pour scroll
   const scrollLeft = () => {
     document
-      .querySelector("#carousel-track")
+      .querySelector("#categories-track")
       .scrollBy({ left: -260, behavior: "smooth" });
   };
 
   const scrollRight = () => {
     document
-      .querySelector("#carousel-track")
+      .querySelector("#categories-track")
       .scrollBy({ left: 260, behavior: "smooth" });
   };
 
@@ -37,20 +38,17 @@ function Categories() {
       <section className="carousel-container categories-section">
         <h3>Catégories de vêtements</h3>
         <div className="carousel">
-          <div id="carousel-track" className="carousel-track">
+          <div id="categories-track" className="carousel-track">
             {subCategories.map((subCat, index) => (
               <div className="card" key={index}>
                 <div className="product-card">
                   <Link
-                    to={`/catalog?page=1&category=${subCat.name || "Vêtements"}`}
+                    to={`/catalog?page=1&subCategory=${encodeURIComponent(subCat.name)}`}
                   >
-                    <h4>{subCat.name || "Vêtements"}</h4>
+                    <h4>{subCat.name}</h4>
                     <img
                       loading="lazy"
-                      src={
-                        subCat.image ||
-                        "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-                      }
+                      src={assetUrl(subCat.image)}
                       alt={subCat.name}
                       style={{
                         width: "100%",

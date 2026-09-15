@@ -120,11 +120,6 @@ function Navbar() {
                 Catalogue
               </a>
             </li>
-            <li>
-              <a href="/category" title="Derniers stocks">
-                Derniers stocks
-              </a>
-            </li>
           </ul>
         </nav>
       </section>

@@ -146,11 +146,12 @@ class ProductController extends AbstractController
     public function listCategories(ProductRepository $productRepository): JsonResponse
     {
         $qb = $productRepository->createQueryBuilder('p')
-            ->select('DISTINCT p.Category as name, p.CategoryImage as image')
-            ->where('p.Category IS NOT NULL')
-            ->andWhere('p.CategoryImage IS NOT NULL');
-            
-        $results = $qb->getQuery()->getArrayResult();
-        return $this->json($results);
+            ->select('p.SubCategory AS name, MIN(p.ImageURL) AS image')
+            ->where('p.SubCategory IS NOT NULL')
+            ->andWhere('p.ImageURL IS NOT NULL')
+            ->groupBy('p.SubCategory')
+            ->orderBy('p.SubCategory', 'ASC');
+
+        return $this->json($qb->getQuery()->getArrayResult());
     }
 }
