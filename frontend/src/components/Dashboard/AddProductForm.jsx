@@ -44,18 +44,18 @@ function AddProductForm({ onProductAdded }) {
       });
       onProductAdded();
     } catch (error) {
-      console.error("Error adding product:", error);
-      alert(`Error adding product: ${error.message}`);
+      console.error("Erreur lors de l'ajout du produit :", error);
+      alert(`Erreur lors de l'ajout du produit : ${error.message}`);
     }
   };
 
   return (
     <div className="add-product-form">
-      <h2 className="form-title">Add New Product</h2>
+      <h2 className="form-title">Nouveau produit</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-field">
           <label className="form-label">
-            Product Title:{" "}
+            Titre :{" "}
             <input
               className="form-input"
               type="text"
@@ -68,7 +68,7 @@ function AddProductForm({ onProductAdded }) {
         </div>
         <div className="form-field">
           <label className="form-label">
-            Price:{" "}
+            Prix :{" "}
             <input
               className="form-input"
               type="number"
@@ -82,7 +82,7 @@ function AddProductForm({ onProductAdded }) {
         </div>
         <div className="form-field">
           <label className="form-label">
-            Product ID:{" "}
+            Identifiant produit :{" "}
             <input
               className="form-input"
               type="text"
@@ -94,7 +94,7 @@ function AddProductForm({ onProductAdded }) {
         </div>
         <div className="form-field">
           <label className="form-label">
-            Category:{" "}
+            Catégorie :{" "}
             <input
               className="form-input"
               type="text"
@@ -107,7 +107,7 @@ function AddProductForm({ onProductAdded }) {
         </div>
         <div className="form-field">
           <label className="form-label">
-            Gender:{" "}
+            Genre :{" "}
             <input
               className="form-input"
               type="text"
@@ -119,7 +119,7 @@ function AddProductForm({ onProductAdded }) {
         </div>
         <div className="form-field">
           <label className="form-label">
-            SubCategory:{" "}
+            Sous-catégorie :{" "}
             <input
               className="form-input"
               type="text"
@@ -131,7 +131,7 @@ function AddProductForm({ onProductAdded }) {
         </div>
         <div className="form-field">
           <label className="form-label">
-            Product Type:{" "}
+            Type de produit :{" "}
             <input
               className="form-input"
               type="text"
@@ -143,7 +143,7 @@ function AddProductForm({ onProductAdded }) {
         </div>
         <div className="form-field">
           <label className="form-label">
-            Colour:{" "}
+            Couleur :{" "}
             <input
               className="form-input"
               type="text"
@@ -155,7 +155,7 @@ function AddProductForm({ onProductAdded }) {
         </div>
         <div className="form-field">
           <label className="form-label">
-            Product Usage:{" "}
+            Utilisation :{" "}
             <input
               className="form-input"
               type="text"
@@ -167,7 +167,7 @@ function AddProductForm({ onProductAdded }) {
         </div>
         <div className="form-field">
           <label className="form-label">
-            Image file:{" "}
+            Fichier image :{" "}
             <input
               className="form-input"
               type="text"
@@ -179,7 +179,7 @@ function AddProductForm({ onProductAdded }) {
         </div>
         <div className="form-field">
           <label className="form-label">
-            Image URL:{" "}
+            URL de l'image :{" "}
             <input
               className="form-input"
               type="text"
@@ -190,7 +190,7 @@ function AddProductForm({ onProductAdded }) {
           </label>
         </div>
         <button className="submit-btn" type="submit">
-          Add Product
+          Ajouter le produit
         </button>
       </form>
     </div>

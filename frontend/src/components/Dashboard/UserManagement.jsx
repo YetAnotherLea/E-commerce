@@ -22,30 +22,30 @@ function UserManagement() {
   }, []);
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
+    if (window.confirm("Supprimer cet utilisateur ?")) {
       try {
         await api.delete(`admin/users/${id}`);
         fetchUsers();
       } catch (error) {
-        console.error("Error deleting user:", error);
-        alert("Error deleting user.");
+        console.error("Erreur lors de la suppression de l'utilisateur :", error);
+        alert("Erreur lors de la suppression de l'utilisateur.");
       }
     }
   };
 
   if (loading) {
-    return <div className="loading">Loading users...</div>;
+    return <div className="loading">Chargement des utilisateurs…</div>;
   }
 
   return (
     <div className="user-management">
-      <h2 className="management-title">Manage Users</h2>
+      <h2 className="management-title">Gestion des utilisateurs</h2>
       <table className="data-table">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Email</th>
-            <th>Roles</th>
+            <th>E-mail</th>
+            <th>Rôles</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -60,7 +60,7 @@ function UserManagement() {
                   className="delete-btn"
                   onClick={() => handleDelete(user.id)}
                 >
-                  Delete
+                  Supprimer
                 </button>
               </td>
             </tr>

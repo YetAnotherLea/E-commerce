@@ -4,7 +4,7 @@ function HeroSection() {
   return (
     <section className="hero-container">
       <div className="hero-section">
-        <img className="hero-image" alt="New collection" src={hero} />
+        <img className="hero-image" alt="Nouvelle collection" src={hero} />
         <div className="hero-info">
           <h2 className="hero-title">NOUVELLE COLLECTION SPORT</h2>
           <a

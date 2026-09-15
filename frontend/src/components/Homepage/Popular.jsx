@@ -83,10 +83,10 @@ function Popular() {
       </div>
 
       <div className="navigation-buttons">
-        <button className="carousel-btn" onClick={scrollLeft} title="Left">
+        <button className="carousel-btn" onClick={scrollLeft} title="Précédent">
           &#8592;
         </button>
-        <button className="carousel-btn" onClick={scrollRight} title="Right">
+        <button className="carousel-btn" onClick={scrollRight} title="Suivant">
           &#8594;
         </button>
       </div>

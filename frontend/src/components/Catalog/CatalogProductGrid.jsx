@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function CatalogProductGrid({ products, loading, hasActiveFilters }) {
   if (loading) {
-    return <p className="loading">Loading...</p>;
+    return <p className="loading">Chargement…</p>;
   }
 
   return (
@@ -25,7 +25,7 @@ function CatalogProductGrid({ products, loading, hasActiveFilters }) {
                     }}
                   />
                 ) : (
-                  <span>No image available</span>
+                  <span>Image indisponible</span>
                 )}
               </div>
               <br />

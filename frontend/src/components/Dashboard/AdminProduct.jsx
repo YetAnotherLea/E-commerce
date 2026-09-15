@@ -27,16 +27,16 @@ function AdminProduct() {
         name="ProductTitle"
         value={formData.ProductTitle}
         onChange={handleChange}
-        placeholder="Product Title"
+        placeholder="Titre du produit"
       />
       <input
         type="number"
         name="Price"
         value={formData.Price}
         onChange={handleChange}
-        placeholder="Price"
+        placeholder="Prix"
       />
-      <button type="submit">Add Product</button>
+      <button type="submit">Ajouter le produit</button>
     </form>
   );
 }

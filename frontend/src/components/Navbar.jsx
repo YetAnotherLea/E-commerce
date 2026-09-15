@@ -91,38 +91,38 @@ function Navbar() {
     <header className="Navbar">
       <section className="nav-left-section">
         <a href="/" title="Accueil">
-          <img loading="lazy" alt="Hainarie Logo" src={logo} />
+          <img loading="lazy" alt="Logo Hainarie" src={logo} />
         </a>
         <nav>
           <ul>
             <li>
               <a href="/catalog?page=1&gender=Women" title="Femme">
-                Women
+                Femme
               </a>
             </li>
             <li>
               <a href="/catalog?page=1&gender=Men" title="Homme">
-                Men
+                Homme
               </a>
             </li>
             <li>
               <a href="/catalog?page=1&gender=Girls" title="Filles">
-                Girl
+                Fille
               </a>
             </li>
             <li>
               <a href="/catalog?page=1&gender=Boys" title="Garçons">
-                Boy
+                Garçon
               </a>
             </li>
             <li className="dropdown">
               <a href="/catalog" title="Catalogue">
-                Catalog
+                Catalogue
               </a>
             </li>
             <li>
-              <a href="/category" title="Derniers Stocks">
-                Last Stock
+              <a href="/category" title="Derniers stocks">
+                Derniers stocks
               </a>
             </li>
           </ul>
@@ -213,7 +213,7 @@ function Navbar() {
             <img loading="lazy"
               className="nav-empty-cart-icon"
               src={emptyCartIcon}
-              alt="Cart Icon"
+              alt="Icône panier"
             />
             <p>Votre panier est vide</p>
           </div>

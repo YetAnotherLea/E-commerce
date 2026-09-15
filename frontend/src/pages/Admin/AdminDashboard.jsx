@@ -27,7 +27,7 @@ function AdminDashboard() {
   return (
     <>
       <div className="admin-dashboard">
-        <h1 className="admin-title">Admin Dashboard</h1>
+        <h1 className="admin-title">Tableau de bord</h1>
 
         <div className="tabs-container">
           <div className="tab-buttons">
@@ -37,13 +37,13 @@ function AdminDashboard() {
               }`}
               onClick={() => switchTab("products")}
             >
-              Products Management
+              Gestion des produits
             </button>
             <button
               className={`tab-button ${activeTab === "users" ? "active" : ""}`}
               onClick={() => switchTab("users")}
             >
-              Users Management
+              Gestion des utilisateurs
             </button>
           </div>
 

@@ -24,18 +24,18 @@ function AddUserForm({ onUserAdded }) {
       setFormData({ email: "", password: "", roles: ["ROLE_USER"] });
       onUserAdded();
     } catch (error) {
-      console.error("Error adding user:", error);
-      alert("Error adding user.");
+      console.error("Erreur lors de l'ajout de l'utilisateur :", error);
+      alert("Erreur lors de l'ajout de l'utilisateur.");
     }
   };
 
   return (
     <div className="add-user-form">
-      <h2 className="form-title">Add New User</h2>
+      <h2 className="form-title">Nouvel utilisateur</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-field">
           <label className="form-label">
-            Email:{" "}
+            E-mail :{" "}
             <input
               className="form-input"
               type="email"
@@ -48,7 +48,7 @@ function AddUserForm({ onUserAdded }) {
         </div>
         <div className="form-field">
           <label className="form-label">
-            Password:{" "}
+            Mot de passe :{" "}
             <input
               className="form-input"
               type="password"
@@ -60,7 +60,7 @@ function AddUserForm({ onUserAdded }) {
           </label>
         </div>
         <button className="submit-btn" type="submit">
-          Add User
+          Ajouter l'utilisateur
         </button>
       </form>
     </div>

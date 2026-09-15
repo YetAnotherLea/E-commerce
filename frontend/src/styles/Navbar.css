@@ -220,7 +220,7 @@
 }
 
 /* LEFT SECTION */
-.Navbar img[alt="Hainarie Logo"] {
+.Navbar img[alt="Logo Hainarie"] {
   height: 4rem;
   width: auto;
   margin-right: 1.5rem;
@@ -251,7 +251,7 @@
 
 
 /* Liens nav */
-[data-theme="dark"] .Navbar img[alt="Hainarie Logo"] {
+[data-theme="dark"] .Navbar img[alt="Logo Hainarie"] {
   filter: brightness(0) invert(1);
 }
 

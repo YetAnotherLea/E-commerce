@@ -24,13 +24,13 @@ function ProductManagement({ reloadProducts }) {
   }, [reloadProducts]);
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
+    if (window.confirm("Supprimer ce produit ?")) {
       try {
         await api.delete(`admin/products/${id}`);
         fetchProducts();
       } catch (error) {
-        console.error("Error deleting product:", error);
-        alert("Error deleting product.");
+        console.error("Erreur lors de la suppression du produit :", error);
+        alert("Erreur lors de la suppression du produit.");
       }
     }
   };
@@ -61,8 +61,8 @@ function ProductManagement({ reloadProducts }) {
       setEditFormData({});
       fetchProducts();
     } catch (error) {
-      console.error("Error updating product:", error);
-      alert("Error updating product.");
+      console.error("Erreur lors de la mise à jour du produit :", error);
+      alert("Erreur lors de la mise à jour du produit.");
     }
   };
 
@@ -79,24 +79,24 @@ function ProductManagement({ reloadProducts }) {
   };
 
   if (loading) {
-    return <div className="loading">Loading products for management...</div>;
+    return <div className="loading">Chargement des produits…</div>;
   }
 
   return (
     <div className="product-management">
-      <h2 className="management-title">Manage Products</h2>
+      <h2 className="management-title">Gestion des produits</h2>
       <table className="data-table">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Gender</th>
-            <th>Category</th>
-            <th>Subcategory</th>
+            <th>Titre</th>
+            <th>Prix</th>
+            <th>Genre</th>
+            <th>Catégorie</th>
+            <th>Sous-catégorie</th>
             <th>Type</th>
-            <th>Colour</th>
-            <th>Usage</th>
+            <th>Couleur</th>
+            <th>Utilisation</th>
             <th>Image</th>
             <th>Actions</th>
           </tr>
@@ -227,10 +227,10 @@ function ProductManagement({ reloadProducts }) {
                       className="save-btn"
                       onClick={() => handleSaveEdit(product.id)}
                     >
-                      Save
+                      Enregistrer
                     </button>
                     <button className="cancel-btn" onClick={handleCancelEdit}>
-                      Cancel
+                      Annuler
                     </button>
                   </div>
                 ) : (
@@ -239,13 +239,13 @@ function ProductManagement({ reloadProducts }) {
                       className="delete-btn"
                       onClick={() => handleDelete(product.id)}
                     >
-                      Delete
+                      Supprimer
                     </button>
                     <button
                       className="edit-btn"
                       onClick={() => handleEdit(product)}
                     >
-                      Edit
+                      Modifier
                     </button>
                   </div>
                 )}
