@@ -1,117 +1,154 @@
-# E-commerce Project
+# Hainarie — boutique de vêtements en ligne
 
 ![screenshot](./frontend/src/assets/screenshot.png)
 
 <p align="center">
-  <img loading="lazy" src="https://img.shields.io/badge/PHP-8.2-blue?logo=php&logoColor=white"/>
+  <img loading="lazy" src="https://img.shields.io/badge/PHP-8.2+-blue?logo=php&logoColor=white"/>
   <img loading="lazy" src="https://img.shields.io/badge/Symfony-7.3-black?logo=symfony&logoColor=white"/>
   <img loading="lazy" src="https://img.shields.io/badge/React-19.1-blue?logo=react&logoColor=white"/>
-  <img loading="lazy" src="https://img.shields.io/badge/MySQL-8.0-orange?logo=mysql&logoColor=white"/>
+  <img loading="lazy" src="https://img.shields.io/badge/MariaDB-11-orange?logo=mariadb&logoColor=white"/>
 </p>
 
-**Objectif** : développer une boutique en ligne dédiée aux vêtements.  
-**Méthodologie** : Agile (SCRUM) avec gestion par sprints, user stories et soutenances intermédiaires.  
-**Durée du projet** : 4 semaines / 7 sprints
+🌐 **Démo en ligne : [ecommerce.leaballester.com](https://ecommerce.leaballester.com)**
 
-Le site inclut :
+Projet Epitech réalisé à deux en **4 semaines / 7 sprints** (SCRUM, user stories, soutenances intermédiaires), puis repris et mis en production. Front React + API Symfony, séparés.
 
-- Gestion utilisateurs (inscription, connexion, rôles admin/utilisateur)
-- Catalogue de produits avec filtres, tri et avis
-- Panier
-- Administration des produits
-- Livraison avec intégration API transporteur
-- Optimisation SEO (balises meta, liens, etc.)
+> Site de démonstration : le tunnel d'achat enregistre une commande mais **aucun paiement n'est traité** et aucune coordonnée bancaire n'est demandée.
+
+## Fonctionnalités
+
+- **Catalogue** de 38 vêtements et accessoires, filtrable par catégorie, genre, sous-catégorie, type, couleur et utilisation, avec tri, recherche et pagination
+- **Panier** persistant côté navigateur
+- **Comptes** : inscription, connexion par session serveur, rôles `ROLE_USER` / `ROLE_ADMIN`
+- **Tableau de bord admin** : création, modification et suppression de produits et d'utilisateurs
+- **Thème clair / sombre**
+- **Catalogue importé** depuis une API de vêtements par une commande Symfony, images converties en WebP et servies localement — le site ne dépend d'aucun service tiers à l'exécution
+
+## Stack
+
+| Couche     | Techno                                     |
+| ---------- | ------------------------------------------ |
+| Front      | React 19, React Router 7, Vite 7, Axios    |
+| API        | Symfony 7.3, Doctrine ORM, PHP 8.2+        |
+| Base       | MariaDB / MySQL                            |
+| Production | nginx + PHP-FPM, Let's Encrypt, Cloudflare |
 
 ## Sommaire
 
-1. [Installation](#-installation)
-2. [Démarrage](#-démarrage)
-3. [Pistes d’amélioration](#-pistes-damélioration)
-4. [Collaborateurs](#-collaborateurs)
+1. [Installation](#installation)
+2. [Démarrage](#démarrage)
+3. [Configuration](#configuration)
+4. [Commandes utiles](#commandes-utiles)
+5. [Déploiement](#déploiement)
+6. [Pistes d'amélioration](#pistes-damélioration)
+7. [Collaborateurs](#collaborateurs)
 
 ---
 
-## 🔧 Installation
+## Installation
 
-1. Cloner le dépôt :
+Prérequis : PHP ≥ 8.2 avec les extensions `pdo_mysql`, `gd`, `intl`, `mbstring` · Composer · Node ≥ 20 · MariaDB ou MySQL.
 
-   ```bash
-   git clone git@github.com:EpitechWebAcademiePromo2026/W-WEB-502-MAR-2-1-ecommerce-lea.ballester.git
-   git checkout main
-   ```
+```bash
+git clone git@github.com:YetAnotherLea/E-commerce.git
+cd E-commerce
+```
 
-2. Installer les dépendances **Symfony** (côté serveur) :
-
-   ```bash
-   cd backend
-   touch .env
-   echo 'APP_ENV=dev' > .env
-   echo 'APP_SECRET=' >> .env
-   echo 'DATABASE_URL="mysql://user:password@127.0.0.1:3306/ecommerce"' >> .env
-   echo 'MESSENGER_TRANSPORT_DSN=doctrine://default?auto_setup=0' >> .env
-   echo 'MAILER_DSN=null://null' >> .env
-   echo 'CORS_ALLOW_ORIGIN="http://localhost:5173"' >> .env
-   ```
-
-   N'oubliez pas de configurer votre SQL avant de lancer composer install
-
-   ```bash
-   composer install
-   ```
-
-3. Installer les dépendances **React** (côté client) :
-
-   ```bash
-   cd frontend
-   npm install
-   ```
-
-4. Configurer la base de données MySQL dans `.env` (Symfony) :
-
-   ```dotenv
-   DATABASE_URL="mysql://user:password@127.0.0.1:3306/ecommerce"
-   ```
-
-5. Créer le schéma et exécuter les migrations :
-
-   ```bash
-   ## php bin/console doctrine:database:create
-   php bin/console doctrine:migrations:migrate
-   ```
-
-## Démarrage
-
-### Lancer le back-end (Symfony)
+**Backend**
 
 ```bash
 cd backend
-symfony server:start
+composer install
 ```
 
-### Lancer le front-end (React)
+Créez `backend/.env.local` (ignoré par git) avec vos identifiants de base :
+
+```dotenv
+DATABASE_URL="mysql://user:password@127.0.0.1:3306/ecommerce?serverVersion=11.8.6-MariaDB&charset=utf8mb4"
+```
+
+Puis le schéma et le catalogue :
+
+```bash
+php bin/console doctrine:database:create
+php bin/console doctrine:migrations:migrate
+php bin/console app:import-products
+```
+
+**Frontend**
 
 ```bash
 cd frontend
-npm run dev
+npm install
 ```
 
-Le projet est alors accessible sur :
+## Démarrage
 
-- API : `http://127.0.0.1:8000`
-- Frontend : `http://localhost:5173` (peut changer selon votre configuration React)
+Deux terminaux :
 
-## Pistes d’amélioration
+```bash
+cd backend && symfony server:start     # API sur http://127.0.0.1:8000
+cd frontend && npm run dev             # Front sur http://localhost:5173
+```
 
-- Ajout d’un système de recommandations produits
-- Intégration d’un paiement en ligne sécurisé (Stripe/PayPal)
-- Système de notifications en temps réel (commandes, livraisons)
-- Interface mobile (PWA)
-- Tableau de bord analytique pour les administrateurs
-- Système de commandes/livraisons
-- CSS plus poussé et plus responsive
-- Gestion des stocks
+Le front appelle l'API via `VITE_API_URL`, défini dans `frontend/.env.development`.
+
+## Configuration
+
+Le projet suit la convention Symfony : `.env` contient des valeurs par défaut sans secret et est versionné ; les surcharges locales et les secrets vont dans `.env.local`, jamais commité.
+
+| Variable                | Rôle                                                                                                                        |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `APP_ENV` / `APP_DEBUG` | `dev` / `1` en local, `prod` / `0` en production                                                                            |
+| `APP_SECRET`            | Secret Symfony — à générer en production : `php -r 'echo bin2hex(random_bytes(32));'`                                       |
+| `DATABASE_URL`          | Connexion MariaDB/MySQL                                                                                                     |
+| `CORS_ALLOW_ORIGIN`     | Origine du front en développement (`http://localhost:5173`). Inutile en production, front et API partageant le même domaine |
+| `PRODUCTS_API_URL`      | Source du catalogue, `https://dummyjson.com` par défaut                                                                     |
+| `VITE_API_URL`          | Côté front : `http://localhost:8000/api` en dev, `/api` en prod                                                             |
+
+## Commandes utiles
+
+| Commande                              | Effet                                                                                 |
+| ------------------------------------- | ------------------------------------------------------------------------------------- |
+| `php bin/console app:import-products` | Vide et réimporte le catalogue depuis l'API. `--keep` conserve les produits existants |
+| `php bin/console app:seed-demo-users` | Crée le compte de démonstration `client@hainarie.fr` / `client1234`                   |
+| `npm run lint`                        | ESLint sur le front                                                                   |
+| `npm run build`                       | Build de production dans `frontend/dist/`                                             |
+
+Aucun compte administrateur n'est créé automatiquement : à créer à la main avec un mot de passe fort.
+
+## Déploiement
+
+Front et API sont servis **sur le même domaine** par nginx : `/` sert le build Vite, `/api` est transmis à Symfony via PHP-FPM, `/uploads` sert les images produits. Ce choix supprime le CORS et permet une authentification par cookie de session `HttpOnly` + `Secure`.
+
+Séquence de mise à jour après un `git pull` :
+
+```bash
+cd backend
+composer install --no-dev --optimize-autoloader
+php bin/console doctrine:migrations:migrate --no-interaction
+php bin/console cache:clear
+cd ../frontend
+npm ci && npm run build
+```
+
+Points d'attention :
+
+- `backend/.env.local` doit être lisible par l'utilisateur PHP-FPM (`www-data`) : `chgrp www-data` + `chmod 640`
+- `backend/var/` et `backend/public/uploads/` doivent être accessibles en écriture à PHP-FPM
+- le bloc PHP de nginx doit passer `fastcgi_param HTTPS on`, sinon le cookie de session `Secure` n'est jamais posé
+- le site de démo est volontairement non indexé (`robots.txt`, meta `noindex`, en-tête `X-Robots-Tag`)
+
+## Pistes d'amélioration
+
+- Commandes persistées côté serveur (`Order`, `OrderItem`) et paiement Stripe
+- Facture PDF
+- Avis clients, gestion des stocks, recommandations
+- Suivi de livraison via une API transporteur
+- Notifications temps réel
+- Déploiement automatisé par GitHub Actions
 
 ## Collaborateurs
 
-- [Stefan-Paris Paduraru] - Développeur Back-end
-- [Léa Ballester] - Développeur Front-end
+- **Stefan-Paris Paduraru** — back-end
+- **Léa Ballester** — front-end

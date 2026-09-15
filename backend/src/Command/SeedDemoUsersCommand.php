@@ -14,8 +14,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 #[AsCommand(name: 'app:seed-demo-users', description: 'Crée les comptes de démonstration')]
 class SeedDemoUsersCommand extends Command
 {
+    // Compte de démonstration visiteur uniquement : jamais d'admin avec un mot de passe connu
     private const USERS = [
-        ['admin@hainarie.fr', 'admin1234', ['ROLE_ADMIN']],
         ['client@hainarie.fr', 'client1234', ['ROLE_USER']],
     ];
 
