@@ -52,7 +52,7 @@
 }
 
 .nav-input::placeholder {
-  color: #9ca3af;
+  color: var(--text-secondary);
 }
 
 .nav-search-wrapper {
@@ -85,7 +85,7 @@
 
 /*Search btn*/
 .nav-search-button {
-  background-color: #fefefe;
+  background-color: transparent;
   padding: 0;
   border: none;
 }
@@ -194,7 +194,7 @@
 
 .user-button-logout {
   margin-top: 15px;
-  background-color: #fefefe;
+  background-color: var(--bg-secondary);
 }
 
 .user-button-logout:hover {
@@ -253,6 +253,14 @@
 /* Liens nav */
 [data-theme="dark"] .Navbar img[alt="Hainarie Logo"] {
   filter: brightness(0) invert(1);
+}
+
+[data-theme="dark"] .nav-right-section img {
+  filter: none;
+}
+
+[data-theme="dark"] .nav-right-section img:hover {
+  filter: invert(54%) sepia(28%) saturate(4979%) hue-rotate(215deg) brightness(93%) contrast(93%);
 }
 
 .Navbar nav li a {

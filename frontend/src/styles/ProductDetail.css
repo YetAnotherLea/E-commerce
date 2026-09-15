@@ -83,7 +83,7 @@
 
 .option-select:focus {
   outline: none;
-  border-color: #7975E6;
+  border-color: var(--accent-color);
 }
 
 .add-to-cart-btn {
@@ -91,7 +91,7 @@
   font-weight: 500;
   cursor: pointer;
   width: 100%;
-  color: #333;
+  color: var(--text-primary);
 
   background: linear-gradient(to right, #7975E6 50%, transparent 50%);
   background-size: 200% 100%;
