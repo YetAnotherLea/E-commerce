@@ -22,27 +22,48 @@ class ImportProductsCommand extends Command
 {
     // Slug de l'API -> (Genre, Catégorie, Sous-catégorie)
     private const CATEGORY_MAP = [
-        'mens-shirts'      => ['Men',    'Apparel',     'Shirts'],
-        'mens-shoes'       => ['Men',    'Footwear',    'Shoes'],
-        'womens-dresses'   => ['Women',  'Apparel',     'Dresses'],
-        'womens-shoes'     => ['Women',  'Footwear',    'Shoes'],
-        'womens-bags'      => ['Women',  'Accessories', 'Bags'],
-        'womens-jewellery' => ['Women',  'Accessories', 'Jewellery'],
-        'tops'             => ['Women',  'Apparel',     'Tops'],
-        'sunglasses'       => ['Unisex', 'Accessories', 'Sunglasses'],
+        'mens-shirts'      => ['Homme', 'Vêtements',   'Chemises'],
+        'mens-shoes'       => ['Homme', 'Chaussures',  'Chaussures'],
+        'womens-dresses'   => ['Femme', 'Vêtements',   'Robes'],
+        'womens-shoes'     => ['Femme', 'Chaussures',  'Chaussures'],
+        'womens-bags'      => ['Femme', 'Accessoires', 'Sacs'],
+        'womens-jewellery' => ['Femme', 'Accessoires', 'Bijoux'],
+        'tops'             => ['Femme', 'Vêtements',   'Hauts'],
+        'sunglasses'       => ['Mixte', 'Accessoires', 'Lunettes de soleil'],
     ];
 
+    // Tags de l'API -> type de produit affiché
+    private const TYPE_MAP = [
+        'footwear'            => 'Chaussures',
+        'fashion accessories' => 'Accessoires de mode',
+        'dresses'             => 'Robes',
+        "girls' dresses"      => 'Robes',
+        'gowns'               => 'Robes de soirée',
+        'eyewear'             => 'Lunettes',
+        "men's shirts"        => 'Chemises',
+        "men's t-shirts"      => 'T-shirts',
+        'corsets'             => 'Corsets',
+        'suits'               => 'Costumes',
+        'bags'                => 'Sacs',
+        'jewellery'           => 'Bijoux',
+        'watches'             => 'Montres',
+        'tops'                => 'Hauts',
+    ];
+
+    // Mot anglais du titre -> couleur affichée. L'ordre compte : première correspondance retenue.
     private const COLOURS = [
-        'Black', 'White', 'Blue', 'Red', 'Green', 'Yellow', 'Pink', 'Purple',
-        'Brown', 'Grey', 'Gray', 'Beige', 'Navy', 'Orange', 'Silver', 'Golden',
-        'Gold',
+        'Black' => 'Noir', 'White' => 'Blanc', 'Blue' => 'Bleu', 'Red' => 'Rouge',
+        'Green' => 'Vert', 'Yellow' => 'Jaune', 'Pink' => 'Rose', 'Purple' => 'Violet',
+        'Brown' => 'Marron', 'Grey' => 'Gris', 'Gray' => 'Gris', 'Beige' => 'Beige',
+        'Navy' => 'Bleu marine', 'Orange' => 'Orange', 'Silver' => 'Argent',
+        'Golden' => 'Doré', 'Gold' => 'Doré',
     ];
 
     // Mots-clés du titre ou des tags -> valeur du filtre « Utilisation »
     private const USAGE_RULES = [
-        'Formal'  => ['gown', 'formal', 'dress shirt', 'suit', 'elegant', 'evening'],
-        'Sports'  => ['sport', 'running', 'training', 'athletic', 'sneaker'],
-        'Casual'  => ['casual', 't-shirt', 'tee', 'denim', 'jeans'],
+        'Habillé'     => ['gown', 'formal', 'dress shirt', 'suit', 'elegant', 'evening'],
+        'Sport'       => ['sport', 'running', 'training', 'athletic', 'sneaker'],
+        'Décontracté' => ['casual', 't-shirt', 'tee', 'denim', 'jeans'],
     ];
 
     public function __construct(
@@ -116,7 +137,7 @@ class ImportProductsCommand extends Command
         }
 
         [$gender, $mainCategory, $subCategory] = self::CATEGORY_MAP[$category]
-            ?? ['Unisex', 'Apparel', ucfirst($category)];
+            ?? ['Mixte', 'Vêtements', ucfirst($category)];
 
         $title = (string) $data['title'];
         $tags = array_map('strval', $data['tags'] ?? []);
@@ -147,8 +168,9 @@ class ImportProductsCommand extends Command
     private function productType(array $tags, string $subCategory): string
     {
         foreach ($tags as $tag) {
-            if (!in_array(strtolower($tag), ['clothing', 'fashion', 'accessories'], true)) {
-                return ucfirst($tag);
+            $type = self::TYPE_MAP[strtolower($tag)] ?? null;
+            if (null !== $type) {
+                return $type;
             }
         }
 
@@ -157,9 +179,9 @@ class ImportProductsCommand extends Command
 
     private function colour(string $title): ?string
     {
-        foreach (self::COLOURS as $colour) {
-            if (preg_match('/\b' . preg_quote($colour, '/') . '\b/i', $title)) {
-                return match ($colour) { 'Gray' => 'Grey', 'Golden' => 'Gold', default => $colour };
+        foreach (self::COLOURS as $word => $colour) {
+            if (preg_match('/\b' . preg_quote($word, '/') . '\b/i', $title)) {
+                return $colour;
             }
         }
 
@@ -178,7 +200,7 @@ class ImportProductsCommand extends Command
             }
         }
 
-        return 'Everyday';
+        return 'Quotidien';
     }
 
     // Télécharge l'image, la convertit en WebP et la déduplique par hash d'URL

@@ -96,22 +96,22 @@ function Navbar() {
         <nav>
           <ul>
             <li>
-              <a href="/catalog?page=1&gender=Women" title="Femme">
+              <a href="/catalog?page=1&gender=Femme" title="Femme">
                 Femme
               </a>
             </li>
             <li>
-              <a href="/catalog?page=1&gender=Men" title="Homme">
+              <a href="/catalog?page=1&gender=Homme" title="Homme">
                 Homme
               </a>
             </li>
             <li>
-              <a href="/catalog?page=1&gender=Girls" title="Filles">
+              <a href="/catalog?page=1&gender=Fille" title="Filles">
                 Fille
               </a>
             </li>
             <li>
-              <a href="/catalog?page=1&gender=Boys" title="Garçons">
+              <a href="/catalog?page=1&gender=Garçon" title="Garçons">
                 Garçon
               </a>
             </li>

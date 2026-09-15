@@ -85,16 +85,16 @@ function Footer() {
               <a href="/">Accueil</a>
             </li>
             <li>
-              <a href="/catalog?page=1&gender=Women">Femme</a>
+              <a href="/catalog?page=1&gender=Femme">Femme</a>
             </li>
             <li>
-              <a href="/catalog?page=1&gender=Men">Homme</a>
+              <a href="/catalog?page=1&gender=Homme">Homme</a>
             </li>
             <li>
-              <a href="/catalog?page=1&gender=Girls">Filles</a>
+              <a href="/catalog?page=1&gender=Fille">Filles</a>
             </li>
             <li>
-              <a href="/catalog?page=1&gender=Boys">Garçons</a>
+              <a href="/catalog?page=1&gender=Garçon">Garçons</a>
             </li>
             <li>
               <a href="/catalog">Catalogue</a>
