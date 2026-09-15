@@ -38,9 +38,15 @@ function CatalogProductGrid({ products, loading, hasActiveFilters }) {
         ))
       ) : (
         <div className="no-products">
-          {hasActiveFilters
-            ? "No product found with those filters"
-            : "No product found"}
+          <h3>Bientôt disponible</h3>
+          <p>
+            {hasActiveFilters
+              ? "Aucun article ne correspond à cette sélection pour le moment."
+              : "Aucun article n'est disponible pour le moment."}
+          </p>
+          <Link to="/catalog?page=1" className="no-products-link">
+            Voir tout le catalogue
+          </Link>
         </div>
       )}
     </div>

@@ -29,6 +29,40 @@
     margin: 1rem 2rem 1rem;
 }
 
+.no-products {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: var(--bg-secondary);
+    border: 1px dashed var(--border-color);
+    border-radius: 12px;
+    color: var(--text-secondary);
+}
+
+.no-products h3 {
+    margin: 0 0 0.75rem;
+    color: var(--text-primary);
+}
+
+.no-products p {
+    margin: 0 0 1.5rem;
+}
+
+.no-products-link {
+    display: inline-block;
+    padding: 0.7rem 1.4rem;
+    border: 1px solid var(--accent-color);
+    border-radius: 6px;
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.no-products-link:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-primary);
+}
+
 .catalog-product {
     background-color: var(--card-bg);
     border: solid 1px var(--accent-color);

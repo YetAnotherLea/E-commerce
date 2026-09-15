@@ -9,7 +9,7 @@ function HeroSection() {
           <h2 className="hero-title">NOUVELLE COLLECTION SPORT</h2>
           <a
             className="hero-link"
-            href="/catalog?page=1&gender=Women&usage=Sports"
+            href="/catalog?page=1&gender=Women"
           >
             Voir la Section Femme
           </a>
